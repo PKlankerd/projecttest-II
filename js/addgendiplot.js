@@ -121,7 +121,7 @@ let app = new Vue({
         },
         sendDataDipL(){       
            
-         
+            
             //  return this.selectedDipL;
             localStorage.setItem('dip', this.selectedDipL);
             console.log(this.selectedDipL)
@@ -239,7 +239,7 @@ let app = new Vue({
         this.callglovecolor();
         this.callmachine();
         this.callsize();
-        // if(localStorage.getItem('dip'))
+        if(localStorage.getItem('dip'))
         this.selectedDipL = localStorage.getItem('dip').toString().split(',')
     },
 })
