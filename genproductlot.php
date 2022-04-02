@@ -1,4 +1,42 @@
+<?php
+$servername='localhost';
+$username='root';
+$password='';
+$dbname = "ansell";
+$conn=mysqli_connect($servername,$username,$password,"$dbname");
+if(!$conn){
+   die('Could not Connect My Sql:' .mysql_error());
+}
 
+$diplot = '';
+
+if(isset($_POST['genpro']))
+{   
+    $diplot = $_POST['machine_pro'];
+    $diplot .= $_POST['date_pro'];
+    $diplot .= $_POST['year_pro'];
+    $diplot .= $_POST['runno_pro'];
+    // $date = $_POST['date'];
+    // $diplot .= $_POST['runno_pro'];
+    // $diplot .= $_POST['runno_pro'];
+    // $diplot .= $_POST['runno_pro'];
+    // $diplot .= $_POST['runno_pro'];
+    // $diplot .= $_POST['runno_pro'];
+    $sql= "INSERT INTO dipping_lot (ProductionLot) VALUES ('$diplot')";
+    if (mysqli_query($conn, $sql))
+   {
+       $message = "Data Inserted!!";
+       echo "<script type='text/javascript'>alert('$message');</script>"; 
+   } 
+    else 
+   {                     
+     echo "<script>";
+     echo "alert(' เกิดข้อผิดพลาดในการเพิ่มข้อมูล! ');";
+     echo "</script>";
+
+   }  
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -63,21 +101,24 @@
             <!-- </span> -->
         </div>
         <div class="col-8 mx-auto" id="crudApp">
-            <div class=" home_content ">
+            <form method="post">
+                <div class=" home_content ">
                 <div class="col-12 " align="center">
                     <div class="col-md-8   p-3    " style="float: center;">
                         <div class="col-12">
                             <h3 class="fw-normal text-secondary fs-4 text-uppercase p-3 ">Production Lot </h3>
                         </div>
-                        <form method="post">
+                        
                             <div class="row g-4">
                                 <div class="col-md-6">
                                     <label for="Machine">Machine</label><br>
                                     <select name="machine_pro" id="machine" class="form-select form-select-md"
-                                        style="border-radius: 30px;" required disabled>
-                                        <option value="S1">Machine AS-1</option>
+                                        style="border-radius: 30px;" required readonly>
+                                        <option value="S1">S1</option>
                                         
                                     </select>
+                                    <!-- <input type="text" name="machine_pro" id="machine" class="form-select form-select-md"
+                                        style="border-radius: 30px;" required readonly> -->
                                 </div>
                                 <div class="col-md-6">
                                     <label for="julian">julianDate</label><br>
@@ -99,7 +140,7 @@
                                 <div class="col-md-4">
                                     <label for="binno">Bin No.</label><br>
                                     <input type="text" name="bin_pro" class="form-control form-control-md"
-                                        style="border-radius: 30px;" placeholder="Bin No." autocomplete="off"
+                                        style="border-radius: 30px;"  placeholder="Bin No." autocomplete="off"
                                         maxlength="2">
                                 </div>
                                 <div class="col-md-4">
@@ -107,7 +148,7 @@
                                     <select name="size_hand" class="form-select form-select-md"
                                         style="border-radius: 30px;">
                                         <option value="">Choose Size</option>
-                                        <option v-for="sizes in size" :key="sizes.size" :value="sizes.size">
+                                        <option v-for="sizes in size"  :key="sizes.size" :value="sizes.size">
                                             {{sizes.size}}</option>
 
                                     </select>
@@ -117,7 +158,7 @@
                                     <select name="product_code" class="form-select form-select-md"
                                         style="border-radius: 30px;">
                                         <option value="">Choose Product</option>
-                                        <option v-for="pro in prodata" :key="pro.productcode" :value="pro.productcode">
+                                        <option v-for="pro in prodata"  :key="pro.productcode" :value="pro.productcode">
                                             {{pro.productcode}}</option>
 
                                     </select>
@@ -135,37 +176,44 @@
                                 <div class="col-md-4">
                                     <label for="runno">Run No.</label><br>
                                     <input type="text" name="run_pro" class="form-control form-control-md"
-                                        style="border-radius: 30px;" placeholder="Run No." autocomplete="off"
+                                        style="border-radius: 30px;"  placeholder="Run No." autocomplete="off"
                                         maxlength="15">
                                 </div>
-                                <div class="col-sm-4">
+                                <!-- <div class="col-sm-4">
                                     <label for="date">Date</label><br>
                                     <input type="text" class="form-control form-control-md " id='ct6'
-                                        name="date" style="border-radius: 30px;" readonly>
+                                         name="date" style="border-radius: 30px;" readonly>
 
-                                </div>
+                                </div> -->
                                 <div class="col-md-12">
                                     <label for="total">TotalGlove</label><br>
                                     <input type="text" name="total_pro" class="form-control form-control-md"
-                                        style="border-radius: 30px;" placeholder="Total Glove." autocomplete="off"
+                                        style="border-radius: 30px;"  :value="v" placeholder="Total Glove." autocomplete="off"
                                         maxlength="5">
                                 </div>
                                 <div class="col-md-12">
                                     <label for="operator">Operator</label><br>
                                     <input type="text" name="operator_pro" class="form-control form-control-md"
-                                        style="border-radius: 30px;" placeholder="Operator" autocomplete="off"
+                                        style="border-radius: 30px;"  placeholder="Operator" autocomplete="off"
                                         maxlength="10">
                                 </div>
                             </div>
+                        </div>  
+                        <div class="col-lg-7 " >
+
+                            <button type="submit" name="genpro" @click="insertDipL()" class="btn btn-primary  btn-sm" style="float: center;">Generator Production Lot</button>
+                                
                         </div>
-                    </form>
+                    
+                </form>       
+                    
             </div>
             <div class="table-responsive-lg">
                     <h1 align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L</h1>
                     <table class="table table-bordered table-striped table-sm">
                         <tr>            
                             <th>Dipping Lot</th>
-                            <th>Batch1</th>
+                            <!-- <th>Batch1</th>
                             <th>Amt1</th>
                             <th>Batch2</th>
                             <th>Amt2</th>
@@ -177,25 +225,21 @@
                             <th>Amt5</th>
                             <th>Batch6</th>
                             <th>Amt6</th>
-                            <th>TotalGlove</th>
+                            <th>TotalGlove</th> -->
                             
                            
                         </tr>
-                        {{selectedDipL}}
-                        <tr v-for="(row,index) in selectedDipL">
+                        <!-- {{d}} -->
+                        <tr v-for="(row,index) in a" :key="row.DippingLot_L">
                             <!-- <tr v-for="row in allData "> -->
                             <!-- <td>{{index+1}}</td> -->
                          
                             <td>{{row}}</td>
-                            <td></td>
+            
                         </tr>
                     </table>
 
-                        <div class="col-lg-7 " >
-
-                            <button type="submit" name="genpro" class="btn btn-primary  btn-sm" style="float: center;">Generator Production Lot</button>
-                                
-                        </div>
+                       
 
                      <a href="batchnumber.html">
                         <div class="col-lg-7 " >

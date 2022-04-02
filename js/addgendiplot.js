@@ -16,6 +16,8 @@ let app = new Vue({
         checkedNames: [],
         message:'',
         sendDipL:[],
+        a: [],
+        v: 0,
         getTwodigitYear: '',
         selectedDipL: [],
         selectedDipR: [],
@@ -34,6 +36,12 @@ let app = new Vue({
                 } 
             }
             if(!found) this.selectedDipL.push(this.allData[index]);
+
+            // let init = 0
+            // const value = this.selectedDipL.reduce((p,c) => {
+            //     return p+ c.TotalPcs
+            // }, init)
+            // this.v = value
         },
         validateDipL(index){
             if(this.allData[index].Batch1 == '') return true;
@@ -73,7 +81,6 @@ let app = new Vue({
             }
             if(!found) this.selectedDipR.push(this.allDataR[index]);
         },
-
         calTotal(index)
         {
             var a = this.allDataR[index].amt1 != '' ? parseInt(this.allDataR[index].amt1) : 0;
@@ -84,9 +91,6 @@ let app = new Vue({
             var f = this.allDataR[index].amt6 != '' ? parseInt(this.allDataR[index].amt6) : 0;
             this.allDataR[index].TotalPcs =  a + b + c + d + e + f;
         },
-
-
-        
         calTotalR(index) 
         {
             var a = this.allData[index].amt1 != '' ? parseInt(this.allData[index].amt1) : 0;
@@ -119,58 +123,67 @@ let app = new Vue({
             });
             return lockedR;
         },
-        sendDataDipL(){       
-           
-            
-            //  return this.selectedDipL;
-            localStorage.setItem('dip', this.selectedDipL);
-            console.log(this.selectedDipL)
-            window.location.href = 'genproductlot.html';
-           
+        
+        sendDataDipL()
+        {             
+            for (let i = 0; i < this.selectedDipL.length; i++)
+            {
+                this.a.push(this.selectedDipL[i].DippingLot_L)
+            }
+            let init = 0
+            const value = this.selectedDipL.reduce((p,c) => {
+                return p+ c.TotalPcs
+            }, init)
+            this.v = value
+            localStorage.setItem('dip', this.a);
+            localStorage.setItem('v', this.v);
+            console.log(this.a)
+            window.location.href = 'genproductlot.php';
         },
-        sendDipR(){
+        sendDipR()
+        {
             this.dipR = [];
             for (let i = 0; i < this.selectedDipR.length; i++)
             {
                 this.dipR.push(this.selectedDipR)
                 console.log(this.dipR)
             }
-            window.location.href = 'genproductlot.html';
-
+            // window.location.href = 'genproductlot.php';
         },
-        callmachinedip(){
-       
+        insertDipL()
+        {
+                // this.a = [];
+                localStorage.removeItem('dip');
+                localStorage.removeItem('v');
+                // alert(res.data.message);
+                // location.reload();
+        },
+        callmachinedip()
+        {
             axios.post('control/actiongendiplot.php', 
             {
                 actions: 'callmachinedip'
-                
             }).then(res => {
                 app.machinedip = res.data;
             })
-        
-            },
+        },
         calltime(){
-       
             axios.post('control/actiongendiplot.php', 
             {
-                actions: 'calltime'
-                    
+                actions: 'calltime' 
             }).then(res => {
                 app.time = res.data;
             })
             },
-            callproductdata(){
-       
+        callproductdata(){
                 axios.post('control/actiongendiplot.php', 
                 {
                     actions: 'callproductdata'
-                    
                 }).then(res => {
                     app.prodata = res.data;
                 })
-            
            },
-           callglovecolor(){
+        callglovecolor(){
             axios.post('control/actiongendiplot.php', 
             {
                 actions: 'callglovecolor'
@@ -178,30 +191,24 @@ let app = new Vue({
             }).then(res => {
                 app.glovecolor = res.data;
             })
-        
             },
-            callmachine(){
-           
+        callmachine(){
                 axios.post('control/actiongendiplot.php', 
                 {
                     actions: 'callmachine'
-                    
                 }).then(res => {
                     app.machine = res.data;
                 })
-            
                 },
-            callsize(){
-           
+        callsize(){
                 axios.post('control/actiongendiplot.php', 
                 {
-                    actions: 'callsize'
-                        
+                    actions: 'callsize' 
                 }).then(res => {
                     app.size = res.data;
                 })
                 },
-       getJulianDate(){
+        getJulianDate(){
             var now = new Date();
             var start = new Date(now.getFullYear(), 0, 0);
             var diff = (now - start) + ((start.getTimezoneOffset() - now.getTimezoneOffset()) * 60 * 1000);
@@ -210,14 +217,13 @@ let app = new Vue({
             this.julian = day.toString().padStart(3, '0');
             return this.julian;
         },
-         getYears()
+        getYears()
         {
             var date = new Date(); // date object
             var getYear =  date.getFullYear(); // get current year
             this.getTwodigitYear = getYear.toString().substring(2); // get last two digits from year
             return this.getTwodigitYear; 
         },
-       
         deleteData(id){
             if(confirm('Are you sure you want to delete')){
                 axios.post('../control/actiongendiplot.php',{
@@ -240,6 +246,9 @@ let app = new Vue({
         this.callmachine();
         this.callsize();
         if(localStorage.getItem('dip'))
-        this.selectedDipL = localStorage.getItem('dip').toString().split(',')
+        this.a = localStorage.getItem('dip').toString().split(',')
+        if(localStorage.getItem('v'))
+        this.v = localStorage.getItem('v').toString().split(',')
+   
     },
 })

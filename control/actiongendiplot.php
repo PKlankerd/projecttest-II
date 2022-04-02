@@ -4,7 +4,16 @@ $connect = new PDO("mysql:host=localhost;dbname=ansell","root","");
 $received_data = json_decode(file_get_contents("php://input"));
 $data = array();
 
-   
+if($received_data->actions == "update")
+{   
+    foreach ($received_data->dipL as $res)
+    {    
+        $query = "INSERT INTO dipping_lot_batch_l (DippingLot_L) value (:dipL)";
+        $statement = $connect->prepare($query);
+        $statement->bindValue(":dipL", $res);
+        $statement->execute();
+    }
+}
 if($received_data->actions == "fetchalldata")
 {
     $query ="SELECT * FROM dipping_lot_batch_r";
@@ -46,6 +55,19 @@ if($received_data->actions == "calltime")
         $data[] = $row;
     }
     echo json_encode($data);
+}
+if($received_data->actions == "insert"){
+    $data = array(
+        ':colorhand' => $received_data->test,
+        
+    );
+    $query = "INSERT INTO dipping_lot(Glovecolor) VALUES(:colorhand)";
+    $statement = $connect->prepare($query);
+    $statement->execute($data);
+    $output = array(
+        'message' => 'Data Inserted'
+    );
+    echo json_encode($output);
 }
 if($received_data->actions == "callproductdata")
 {
@@ -92,8 +114,7 @@ if($received_data->actions == "callsize")
     echo json_encode($data);
 }
 if($received_data->actions == "dataas1")
-{
-        
+{      
     foreach ($received_data->send as $res)
     {    
         if($res%2==1)
