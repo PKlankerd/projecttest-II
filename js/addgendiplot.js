@@ -140,7 +140,7 @@ let app = new Vue({
             const res = await axios.post('control/actiongendiplot.php', {actions: 'ArrtoJson', arr: this.selectedDipL});
 
             localStorage.setItem('dip', res.data.arr);
-
+            console.log(this.v)
 
             let init = 0
             const value = this.selectedDipL.reduce((p,c) => {
@@ -161,7 +161,7 @@ let app = new Vue({
             const res = await axios.post('control/actiongendiplot.php', {actions: 'ArrtoJsonR', arr: this.selectedDipR});
 
             localStorage.setItem('dipR', res.data.arr);
-            console.log(res.data.arr)
+            console.log(this.v)
 
             let init = 0
             const value = this.selectedDipL.reduce((p,c) => {

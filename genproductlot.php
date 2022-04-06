@@ -151,7 +151,7 @@
                                 <div class="col-md-12">
                                     <label for="total">TotalGlove</label><br>
                                     <input type="text" name="total_pro" v-model="total" class="form-control form-control-md"
-                                        style="border-radius: 30px;"  :value="v" placeholder="Total Glove." autocomplete="off"
+                                        style="border-radius: 30px;"   placeholder="Total Glove." autocomplete="off"
                                         maxlength="5">
                                 </div>
                                 <div class="col-md-12">
