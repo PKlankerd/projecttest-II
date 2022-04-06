@@ -4,19 +4,113 @@ $connect = new PDO("mysql:host=localhost;dbname=ansell","root","");
 $received_data = json_decode(file_get_contents("php://input"));
 $data = array();
 
-if($received_data->actions == "update")
-{   
-    foreach ($received_data->dipL as $res)
-    {    
-        $query = "INSERT INTO dipping_lot_batch_l (DippingLot_L) value (:dipL)";
-        $statement = $connect->prepare($query);
-        $statement->bindValue(":dipL", $res);
-        $statement->execute();
+if($received_data->actions == 'update')
+{  
+    $query = "INSERT INTO dipping_lot (Binno,Productcode,Productionlot,SizeHand,Glovecolor,MachineRunNo,TotalGlove,Operator)
+    value (:insertbinno,:insertproduct,:insertproductlot,:insertsizehand,:insertcolor,:insertrun,:inserttotal,:insertoperator)";
+    $statement = $connect->prepare($query);
+
+    $statement->bindValue(":insertbinno", $received_data->insertbinno);
+    $statement->bindValue(":insertproduct", $received_data->insertproduct);
+    $statement->bindValue(":insertproductlot", $received_data->insertproductlot);
+    $statement->bindValue(":insertsizehand", $received_data->insertsizehand);
+    $statement->bindValue(":insertcolor", $received_data->insertcolor);
+    $statement->bindValue(":insertrun", $received_data->insertrun);
+    $statement->bindValue(":inserttotal", $received_data->inserttotal);
+    $statement->bindValue(":insertoperator", $received_data->insertoperator);
+    $statement->execute();
+  
+    foreach ($received_data->updates as $res) 
+    {
+    $query = "UPDATE dipping_lot_batch_l SET 
+        Batch1 = :b1,amt1 = :a1,
+        Batch2 = :b2,amt2 = :a2,
+        Batch3 = :b3,amt3 = :a3,
+        Batch4 = :b4,amt4 = :a4,
+        Batch5 = :b5,amt5 = :a5,
+        Batch6 = :b6,amt6 = :a6,
+        TotalPcs = :tp, ProductionLot = :insertproductlot WHERE DippingLot_L = :dipl";
+    $statement = $connect->prepare($query);
+    $statement->bindValue(":b1", $res->Batch1);
+    $statement->bindValue(":a1", $res->amt1);
+    $statement->bindValue(":b2", $res->Batch2);
+    $statement->bindValue(":a2", $res->amt2);
+    $statement->bindValue(":b3", $res->Batch3);
+    $statement->bindValue(":a3", $res->amt3);
+    $statement->bindValue(":b4", $res->Batch4);
+    $statement->bindValue(":a4", $res->amt4);
+    $statement->bindValue(":b5", $res->Batch5);
+    $statement->bindValue(":a5", $res->amt5);
+    $statement->bindValue(":b6", $res->Batch6);
+    $statement->bindValue(":a6", $res->amt6);
+    $statement->bindValue(":tp", $res->TotalPcs);
+    $statement->bindValue(":insertproductlot", $received_data->insertproductlot);
+    $statement->bindValue(":dipl", $res->DippingLot_L);
+    $statement->execute();
     }
+      $output = array(
+        'message' => json_decode($res)
+    );
+    echo json_encode($output);   
+
+  
+}
+
+if($received_data->actions == 'updateR')
+{  
+    $query = "INSERT INTO dipping_lot (Binno,Productcode,Productionlot,SizeHand,Glovecolor,MachineRunNo,TotalGlove,Operator)
+    value (:insertbinno,:insertproduct,:insertproductlot,:insertsizehand,:insertcolor,:insertrun,:inserttotal,:insertoperator)";
+    $statement = $connect->prepare($query);
+
+    $statement->bindValue(":insertbinno", $received_data->insertbinno);
+    $statement->bindValue(":insertproduct", $received_data->insertproduct);
+    $statement->bindValue(":insertproductlot", $received_data->insertproductlot);
+    $statement->bindValue(":insertsizehand", $received_data->insertsizehand);
+    $statement->bindValue(":insertcolor", $received_data->insertcolor);
+    $statement->bindValue(":insertrun", $received_data->insertrun);
+    $statement->bindValue(":inserttotal", $received_data->inserttotal);
+    $statement->bindValue(":insertoperator", $received_data->insertoperator);
+    $statement->execute();
+  
+    foreach ($received_data->updatesR as $res) 
+    {
+    $query = "UPDATE dipping_lot_batch_r SET 
+        Batch1 = :b1,amt1 = :a1,
+        Batch2 = :b2,amt2 = :a2,
+        Batch3 = :b3,amt3 = :a3,
+        Batch4 = :b4,amt4 = :a4,
+        Batch5 = :b5,amt5 = :a5,
+        Batch6 = :b6,amt6 = :a6,
+        TotalPcs = :tp, ProductionLot = :insertproductlot WHERE DippingLot_R = :dipR";
+    $statement = $connect->prepare($query);
+    $statement->bindValue(":b1", $res->Batch1);
+    $statement->bindValue(":a1", $res->amt1);
+    $statement->bindValue(":b2", $res->Batch2);
+    $statement->bindValue(":a2", $res->amt2);
+    $statement->bindValue(":b3", $res->Batch3);
+    $statement->bindValue(":a3", $res->amt3);
+    $statement->bindValue(":b4", $res->Batch4);
+    $statement->bindValue(":a4", $res->amt4);
+    $statement->bindValue(":b5", $res->Batch5);
+    $statement->bindValue(":a5", $res->amt5);
+    $statement->bindValue(":b6", $res->Batch6);
+    $statement->bindValue(":a6", $res->amt6);
+    $statement->bindValue(":tp", $res->TotalPcs);
+    $statement->bindValue(":insertproductlot", $received_data->insertproductlot);
+    $statement->bindValue(":insertproductlot", $received_data->insertproductlot);
+    $statement->bindValue(":dipR", $res->DippingLot_R);
+    $statement->execute();
+    }
+      $output = array(
+        'message' => $res->DippingLot_R
+    );
+    echo json_encode($output);   
+
+  
 }
 if($received_data->actions == "fetchalldata")
 {
-    $query ="SELECT * FROM dipping_lot_batch_r";
+    $query ="SELECT * FROM dipping_lot_batch_r where ProductionLot = '' ";
     $statement = $connect->prepare($query);
     $statement->execute();
     while($row = $statement->fetch(PDO::FETCH_ASSOC)){
@@ -26,7 +120,7 @@ if($received_data->actions == "fetchalldata")
 }
 if($received_data->actions == "fetchall")
 {
-    $query ="SELECT * FROM dipping_lot_batch_l";
+    $query ="SELECT * FROM dipping_lot_batch_l where ProductionLot = '' ";
     $statement = $connect->prepare($query);
     $statement->execute();
     while($row = $statement->fetch(PDO::FETCH_ASSOC)){
@@ -227,6 +321,21 @@ if($received_data->actions == 'deleteR'){
 
     $output = array(
         'message' => 'Success!!'
+    );
+    echo json_encode($output);
+}
+
+if($received_data->actions == "ArrtoJson")
+{
+    $output = array(
+        'arr' => json_encode($received_data->arr)
+    );
+    echo json_encode($output);
+}
+if($received_data->actions == "ArrtoJsonR")
+{
+    $output = array(
+        'arr' => json_encode($received_data->arr)
     );
     echo json_encode($output);
 }

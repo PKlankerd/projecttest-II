@@ -16,8 +16,21 @@ let app = new Vue({
         checkedNames: [],
         message:'',
         sendDipL:[],
-        a: [],
+        bat1:[],
         v: 0,
+        machine: '',
+        juliandate: '',
+        years: '',
+        runno: '',
+        binno: '',
+        sizehand: '',
+        product: '',
+        color: '',
+        run: '',
+        total: '',
+        operator: '',
+        a: JSON.parse(localStorage.getItem('dip')) || '',
+        b: JSON.parse(localStorage.getItem('dipR')) || '',
         getTwodigitYear: '',
         selectedDipL: [],
         selectedDipR: [],
@@ -35,13 +48,10 @@ let app = new Vue({
                     found = true;
                 } 
             }
-            if(!found) this.selectedDipL.push(this.allData[index]);
-
-            // let init = 0
-            // const value = this.selectedDipL.reduce((p,c) => {
-            //     return p+ c.TotalPcs
-            // }, init)
-            // this.v = value
+            if(!found){
+                this.selectedDipL.push(this.allData[index]);
+            }
+         
         },
         validateDipL(index){
             if(this.allData[index].Batch1 == '') return true;
@@ -78,6 +88,7 @@ let app = new Vue({
                     this.selectedDipR.splice(i, 1);
                     found = true;
                 }
+                
             }
             if(!found) this.selectedDipR.push(this.allDataR[index]);
         },
@@ -124,39 +135,97 @@ let app = new Vue({
             return lockedR;
         },
         
-        sendDataDipL()
-        {             
-            for (let i = 0; i < this.selectedDipL.length; i++)
-            {
-                this.a.push(this.selectedDipL[i].DippingLot_L)
-            }
+        async sendDataDipL()
+        {   
+            const res = await axios.post('control/actiongendiplot.php', {actions: 'ArrtoJson', arr: this.selectedDipL});
+
+            localStorage.setItem('dip', res.data.arr);
+
+
             let init = 0
             const value = this.selectedDipL.reduce((p,c) => {
                 return p+ c.TotalPcs
             }, init)
             this.v = value
-            localStorage.setItem('dip', this.a);
+
             localStorage.setItem('v', this.v);
-            console.log(this.a)
+
             window.location.href = 'genproductlot.php';
+
+
         },
-        sendDipR()
-        {
-            this.dipR = [];
-            for (let i = 0; i < this.selectedDipR.length; i++)
-            {
-                this.dipR.push(this.selectedDipR)
-                console.log(this.dipR)
-            }
-            // window.location.href = 'genproductlot.php';
+
+      
+        async sendDataDipR()
+        {   
+            const res = await axios.post('control/actiongendiplot.php', {actions: 'ArrtoJsonR', arr: this.selectedDipR});
+
+            localStorage.setItem('dipR', res.data.arr);
+            console.log(res.data.arr)
+
+            let init = 0
+            const value = this.selectedDipL.reduce((p,c) => {
+                return p+ c.TotalPcs
+            }, init)
+            this.v = value
+
+            localStorage.setItem('v', this.v);
+
+            window.location.href = 'genproductlotR.php';
+
+
         },
         insertDipL()
         {
-                // this.a = [];
+            axios.post('control/actiongendiplot.php', 
+            {
+                actions: 'update',
+                updates:this.a,
+                insertproductlot:this.machine + this.juliandate + this.years + this.runno ,
+                insertbinno:this.binno,
+                insertsizehand:this.sizehand, 
+                insertproduct:this.product,
+                insertcolor:this.color ,
+                insertrun:this.run,
+                inserttotal:this.total, 
+                insertoperator:this.operator,
+                             
+
+            }).then(res => {
+                
+               alert(res.data.message);
+            })              
                 localStorage.removeItem('dip');
                 localStorage.removeItem('v');
-                // alert(res.data.message);
-                // location.reload();
+               
+                location.reload();
+             
+        },
+        insertDipR()
+        {
+            axios.post('control/actiongendiplot.php', 
+            {
+                actions: 'updateR',
+                updatesR:this.b,
+                insertproductlot:this.machine + this.juliandate + this.years + this.runno ,
+                insertbinno:this.binno,
+                insertsizehand:this.sizehand, 
+                insertproduct:this.product,
+                insertcolor:this.color ,
+                insertrun:this.run,
+                inserttotal:this.total, 
+                insertoperator:this.operator,
+                             
+
+            }).then(res => {
+                
+               alert(res.data.message);
+            })              
+                localStorage.removeItem('dipR');
+                localStorage.removeItem('v');
+               
+                location.reload();
+             
         },
         callmachinedip()
         {
@@ -235,6 +304,7 @@ let app = new Vue({
             }
         }
     },
+    
     created()
     {
         this.fetchAllData();
@@ -245,8 +315,9 @@ let app = new Vue({
         this.callglovecolor();
         this.callmachine();
         this.callsize();
-        if(localStorage.getItem('dip'))
-        this.a = localStorage.getItem('dip').toString().split(',')
+        this.total= this.v;
+        this.years = this.getYears();
+        this.juliandate = this.getJulianDate();
         if(localStorage.getItem('v'))
         this.v = localStorage.getItem('v').toString().split(',')
    

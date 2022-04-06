@@ -75,10 +75,11 @@
                                 <div class="col-md-6">
                                     <label for="Machine">Machine</label><br>
                                     <select name="machine_pro" id="machine" v-model="machine" class="form-select form-select-md"
-                                        style="border-radius: 30px;" required readonly>
-                                        <option value="S1">S1</option>
+                                        style="border-radius: 30px;" >
+                                        <option value="S2">S2</option>
                                         
                                     </select>
+                                    
                                     <!-- <input type="text" name="machine_pro" id="machine" class="form-select form-select-md"
                                         style="border-radius: 30px;" required readonly> -->
                                 </div>
@@ -164,7 +165,7 @@
                         </div>  
                         <div class="col-lg-7 " >
 
-                            <button type="submit" name="genpro" @click="insertDipL()" class="btn btn-primary  btn-sm" style="float: center;">Generator Production Lot</button>
+                            <button type="submit" name="genpro" @click="insertDipR()" class="btn btn-primary  btn-sm" style="float: center;">Generator Production Lot</button>
                                 
                         </div>
                     
@@ -172,7 +173,7 @@
                     
             </div>
             <div class="table-responsive-lg">
-                    <h1 align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L</h1>
+                    <h1 align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;R</h1>
                     <table class="table table-bordered table-striped table-sm">
                         <tr>            
                             <th>Dipping Lot</th>
@@ -195,11 +196,11 @@
                         </tr>
                         <!-- {{d}} -->
        
-                        <tr v-for="(row,index) in a" >
+                        <tr v-for="(row,index) in b" >
                             <!-- <tr v-for="row in allData "> -->
                             <!-- <td>{{index+1}}</td> -->
                          
-                            <td>{{row.DippingLot_L}}</td>
+                            <td>{{row.DippingLot_R}}</td>
                             <td>{{row.Batch1}}</td>
                             <td>{{row.amt1}}</td>
                             <td>{{row.Batch2}}</td>

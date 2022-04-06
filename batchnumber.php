@@ -148,7 +148,7 @@
                                     aria-selected="false"  style="font-size: 3rem; padding: 0px 20px;">R</button>
                             </div>
                         </nav>
-                        <form action="">
+                       
                         <div class="tab-content " id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
                                 aria-labelledby="nav-home-tab">
@@ -176,10 +176,7 @@
                                 <th>TotalGlove</th>
                                 <th>Action</th>
                             </thead>
-                            <!-- {{selectedDipL}}
-                            {{a}} 
-                            {{v}} -->
-                                    
+                 
                             <tbody>          
                             <tr v-for="(row, index) in allData">
                                 <td><input class="form-check-input " type="checkbox" id="flexCheckDefault" @click="selectDipL(index)" :disabled="validateDipL(index)">
@@ -254,8 +251,7 @@
                                                 <th>TotalGlove</th>
                                                 <th>Action</th>
                                             </thead>
-                                            <!-- {{selectedDipR}} -->
-                                            {{dipR}}
+                                         
                                             <tbody>
                                 <tr v-for="(row, index) in allDataR">
                                     <td><input class="form-check-input " type="checkbox" id="flexCheckDefault" @click="selectDipR(index)" :disabled="validateDipR(index)"></td>
@@ -292,11 +288,11 @@
                                         </td>
                                 </tr>
                                 <div class="col-lg-11">
-                                    <!-- <a href="genproductlot.html"> -->
+                                   
                                     <button class="btn btn-success btn-lg m-4 " name="productgen" type="submit" style="float: right;"
-                                    data-bs-target="#staticBackdrop" @click="sendDipR()" >Gen
+                                    data-bs-target="#staticBackdrop" @click="sendDataDipR()" >Gen
                                     Production Lot R</button>
-                                    <!-- </a> -->
+                          
                                 </div>
                                     </div>
                             </tbody>
@@ -306,7 +302,7 @@
                                 </div>
                             </div>
                         </div>
-                        </form>
+                      
                     </div>
                 </div>
             </div>
