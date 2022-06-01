@@ -35,17 +35,46 @@
         </div>
         <ul class="nav-links">
             <li>
+                
                 <a href="homeqc.php">
                     <i class='bx bx-home-heart'></i>
-                    <span class="link_name">Menu</span>
+                    <span class="link_name">Home</span>
                 </a>
+
                 <ul class="sub-menu blank">
                     <li><a class="link_name" href="homeqc.php">HOME</a></li>
                 </ul>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="batchnumber.php">Bat Number</a></li>
+                
+            </li>
+
+            <li>
+                <div class="iocn-link">
+                    <a href="batchnumber.php">
+                        <i class='bx bxs-report'></i>
+                        <span class="link_name">BATCH</span>
+                    </a>
+                    <!-- <i class='bx bxs-chevron-down arrow'></i> -->
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="batchnumber.php">BATCH</a></li>
+                    
                 </ul>
             </li>
+
+            <!-- <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bxs-report'></i>
+                        <span class="link_name">Report</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">***Report***</a></li>
+                    <li><a href="reportproductionlot.php">Production Lot</a></li>
+                    
+                </ul>
+            </li> -->
             <!-- <li>
                 <div class="iocn-link">
                     <a href="#">
@@ -216,7 +245,8 @@
 
     showTime();
     </script>
-    <script src="../js/dropdown.js"></script>
+
+    <script src="./js/dropdown.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">

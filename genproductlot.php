@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,12 +41,12 @@
             <li>
                 <div class="profile-details">
                     <div class="profile-content">
-                      
+
                     </div>
                     <div class="name-job">
-                      
+
                     </div>
-                    
+
                 </div>
             </li>
         </ul>
@@ -63,118 +61,129 @@
             <!-- </span> -->
         </div>
         <div class="col-8 mx-auto" id="crudApp">
-         
-                <div class=" home_content ">
+
+            <div class=" home_content ">
                 <div class="col-12 " align="center">
                     <div class="col-md-8   p-3    " style="float: center;">
                         <div class="col-12">
                             <h3 class="fw-normal text-secondary fs-4 text-uppercase p-3 ">Production Lot </h3>
                         </div>
-                        
-                            <div class="row g-4">
-                                <div class="col-md-6">
-                                    <label for="Machine">Machine</label><br>
-                                    <select name="machine_pro" id="machine" v-model="machine" class="form-select form-select-md"
-                                        style="border-radius: 30px;" required readonly>
-                                        <option value="S1">S1</option>
+
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <label for="Machine">Machine</label><br>
+
+                                <!-- <select name="machine_pro" id="machine" v-model="machine" class="form-select form-select-md"
+                                        style="border-radius: 30px;" value="S1"  >
+                                        <option value="S1" selected >S1</option>
                                         
-                                    </select>
-                                    <!-- <input type="text" name="machine_pro" id="machine" class="form-select form-select-md"
-                                        style="border-radius: 30px;" required readonly> -->
-                                </div>
-                                <div class="col-md-6">
-       
-                                    <label for="julian">julianDate</label><br>
-                                    <input type="text" name="date_pro" id="name" v-model="juliandate" class="form-control form-control-md"
-                                        style="border-radius: 30px;"  disabled>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="year">Year</label><br>
-                                    <input type="text" name="year_pro" id="year" v-model="years" class="form-control form-control-md"
-                                        style="border-radius: 30px;" :value="getYears()" placeholder="year เช่น 21-22-23" maxlength="2"
-                                        autocomplete="off" required readonly>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="productlot">Production Lot</label><br>
-                                    <input type="text" name="runno_pro" id="runno" v-model="runno" class="form-control form-control-md"
-                                        style="border-radius: 30px;" placeholder="เลข product lot  001-010 เป็นต้น"
-                                        maxlength="3" autocomplete="off" required>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="binno">Bin No.</label><br>
-                                    <input type="text" name="bin_pro" v-model="binno" class="form-control form-control-md"
-                                        style="border-radius: 30px;"  placeholder="Bin No." autocomplete="off"
-                                        maxlength="2">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="size">Size</label><br>
-                                    <select name="size_hand" v-model="sizehand" class="form-select form-select-md"
-                                        style="border-radius: 30px;">
-                                        <option value="">Choose Size</option>
-                                        <option v-for="sizes in size"  :key="sizes.size" :value="sizes.size">
-                                            {{sizes.size}}</option>
+                                    </select> -->
 
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="product">Product</label><br>
-                                    <select name="product_code" v-model="product" class="form-select form-select-md"
-                                        style="border-radius: 30px;">
-                                        <option value="">Choose Product</option>
-                                        <option v-for="pro in prodata"   :key="pro.productcode" :value="pro.productcode">
-                                            {{pro.productcode}}</option>
+                                <select name="machine_pro" id="machine" v-model="machinedipl" class="form-select form-select-md"
+                                    style="border-radius: 30px;" >
+                                    <option value="S1">S1</option>
 
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="color">color</label><br>
-                                    <select name="glove_color" v-model="color"class="form-select form-select-md"
-                                        style="border-radius: 30px;">
-                                        <option value="">Glove color</option>
-                                        <option v-for="colors in glovecolor"  :key="colors.color" :value="colors.color">
-                                            {{colors.color}}</option>
 
-                                    </select>
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="runno">Run No.</label><br>
-                                    <input type="text" name="run_pro" v-model="run" class="form-control form-control-md"
-                                        style="border-radius: 30px;"  placeholder="Run No." autocomplete="off"
-                                        maxlength="15">
-                                </div>
-                                <!-- <div class="col-sm-4">
+                                </select>
+
+
+
+                            </div>
+                            <div class="col-md-6">
+
+                                <label for="julian">julianDate</label><br>
+                                <input type="text" name="date_pro" id="name" v-model="juliandate"
+                                    class="form-control form-control-md" style="border-radius: 30px;" disabled>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="year">Year</label><br>
+                                <input type="text" name="year_pro" id="year" v-model="years"
+                                    class="form-control form-control-md" style="border-radius: 30px;"
+                                    :value="getYears()" placeholder="year เช่น 21-22-23" maxlength="2"
+                                    autocomplete="off" required readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="productlot">Production Lot</label><br>
+                                <input type="text" name="runno_pro" id="runno" v-model="runno"
+                                    class="form-control form-control-md" style="border-radius: 30px;"
+                                    placeholder="เลข product lot  001-010 เป็นต้น" maxlength="3" autocomplete="off"
+                                    required>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="binno">Bin No.</label><br>
+                                <input type="text" name="bin_pro" v-model="binno" class="form-control form-control-md"
+                                    style="border-radius: 30px;" placeholder="Bin No." autocomplete="off" maxlength="2">
+                            </div>
+                            <div class="col-md-4">
+                                <label for="size">Size</label><br>
+                                <select name="size_hand" v-model="sizehand" class="form-select form-select-md"
+                                    style="border-radius: 30px;">
+                                    <option value="">Choose Size</option>
+                                    <option v-for="sizes in size" :key="sizes.size" :value="sizes.size">
+                                        {{sizes.size}}</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="product">Product</label><br>
+                                <select name="product_code" v-model="product" class="form-select form-select-md"
+                                    style="border-radius: 30px;">
+                                    <option value="">Choose Product</option>
+                                    <option v-for="pro in prodata" :key="pro.productcode" :value="pro.productcode">
+                                        {{pro.productcode}}</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="color">color</label><br>
+                                <select name="glove_color" v-model="color" class="form-select form-select-md"
+                                    style="border-radius: 30px;">
+                                    <option value="">Glove color</option>
+                                    <option v-for="colors in glovecolor" :key="colors.color" :value="colors.color">
+                                        {{colors.color}}</option>
+
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="runno">Run No.</label><br>
+                                <input type="text" name="run_pro" v-model="run" class="form-control form-control-md"
+                                    style="border-radius: 30px;" placeholder="Run No." autocomplete="off"
+                                    maxlength="15">
+                            </div>
+                            <!-- <div class="col-sm-4">
                                     <label for="date">Date</label><br>
                                     <input type="text" class="form-control form-control-md " id='ct6'
                                          name="date" style="border-radius: 30px;" readonly>
 
                                 </div> -->
-                                <div class="col-md-12">
-                                    <label for="total">TotalGlove</label><br>
-                                    <input type="text" name="total_pro" v-model="total" class="form-control form-control-md"
-                                        style="border-radius: 30px;"   placeholder="Total Glove." autocomplete="off"
-                                        maxlength="5">
-                                </div>
-                                <div class="col-md-12">
-                                    <label for="operator">Operator</label><br>
-                                    <input type="text" name="operator_pro" v-model="operator" class="form-control form-control-md"
-                                        style="border-radius: 30px;"  placeholder="Operator" autocomplete="off"
-                                        maxlength="10">
-                                </div>
+                            <div class="col-md-4">
+                                <label for="total">TotalGlove</label><br>
+                                <input type="text" name="total_pro" v-model="total" class="form-control form-control-md"
+                                    style="border-radius: 30px;" placeholder="Total Glove." autocomplete="off"
+                                    maxlength="5">
                             </div>
-                        </div>  
-                        <div class="col-lg-7 " >
-
-                            <button type="submit" name="genpro" @click="insertDipL()" class="btn btn-primary  btn-sm" style="float: center;">Generator Production Lot</button>
-                                
+                            <div class="col-md-12">
+                                <label for="operator">Operator</label><br>
+                                <input type="text" name="operator_pro" v-model="operator"
+                                    class="form-control form-control-md" style="border-radius: 30px;"
+                                    placeholder="Operator" autocomplete="off" maxlength="10">
+                            </div>
                         </div>
-                    
-              
-                    
-            </div>
-            <div class="table-responsive-lg">
+                    </div>
+                    <div class="col-lg-7 ">
+
+                        <button type="submit" name="genpro" @click="insertDipL()" class="btn btn-primary  btn-sm"
+                            style="float: center;">Generator Production Lot</button>
+
+                    </div>
+
+
+
+                </div>
+                <div class="table-responsive-lg">
                     <h1 align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;L</h1>
                     <table class="table table-bordered table-striped table-sm">
-                        <tr>            
+                        <tr>
                             <th>Dipping Lot</th>
                             <th>Batch1</th>
                             <th>Amt1</th>
@@ -189,16 +198,16 @@
                             <th>Batch6</th>
                             <th>Amt6</th>
                             <th>TotalGlove</th>
-                            
-                            
-                           
+
+
+
                         </tr>
                         <!-- {{d}} -->
-       
-                        <tr v-for="(row,index) in a" >
+
+                        <tr v-for="(row,index) in a">
                             <!-- <tr v-for="row in allData "> -->
                             <!-- <td>{{index+1}}</td> -->
-                         
+
                             <td>{{row.DippingLot_L}}</td>
                             <td>{{row.Batch1}}</td>
                             <td>{{row.amt1}}</td>
@@ -213,19 +222,20 @@
                             <td>{{row.Batch6}}</td>
                             <td>{{row.amt6}}</td>
                             <td>{{row.TotalPcs}}</td>
-                           
+
                         </tr>
                     </table>
 
-                       
 
-                     <a href="batchnumber.php">
-                        <div class="col-lg-7 " >
-                            <button type="submit" name="" class="btn btn-danger  btn-sm" style="float: left;">Back</button>
-                                
+
+                    <a href="batchnumber.php">
+                        <div class="col-lg-7 ">
+                            <button type="submit" name="" class="btn btn-danger  btn-sm"
+                                style="float: left;">Back</button>
+
                         </div>
-                     </a>
-                       
+                    </a>
+
 
 
                     <br>
@@ -233,16 +243,19 @@
                 </div>
             </div>
         </div>
-    </div>
+
+
 
 
     </section>
+
     <script src="js/addgendiplot.js"></script>
     <script src="js/dropdown.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    </script>
 
-    
+
 </body>
 
 </html>

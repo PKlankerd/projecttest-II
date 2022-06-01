@@ -25,8 +25,18 @@ $totalGrove = 0;
         }
         echo json_encode($data);
     }
+    // เอฟทำ
+    if($received_data->actions == "fetchDippingLot")
+    {
+        $query ="SELECT * FROM dipping_lot WHERE Productionlot = '".$received_data->id."' ";
+        $statement = $connect->prepare($query);
+        $statement->execute();
+        
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        echo json_encode($result);
+    }
 
-
+   
 
     if($received_data->actions == 'fetchSingle'){  
         $query = "SELECT * FROM dipping_lot_batch_l WHERE DippingLot_L = '".$received_data->id."' ";  

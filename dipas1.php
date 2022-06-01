@@ -101,6 +101,7 @@
                                             <option value="1">AS-1</option>
                                         </select>
                                     </div>
+                                    
                                     <div class="col-md-12">
                                         <input type="text" name="runno_dip" id="run" v-model="RUNNER" class="form-control form-control-md"
                                             style="border-radius: 30px;" placeholder="เลข Dipping Lot " maxlength="3"

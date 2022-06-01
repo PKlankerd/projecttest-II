@@ -74,7 +74,7 @@
                             <div class="row g-4">
                                 <div class="col-md-6">
                                     <label for="Machine">Machine</label><br>
-                                    <select name="machine_pro" id="machine" v-model="machine" class="form-select form-select-md"
+                                    <select name="machine_pro" id="machine" v-model="machinedipr" class="form-select form-select-md"
                                         style="border-radius: 30px;" >
                                         <option value="S2">S2</option>
                                         
@@ -149,12 +149,13 @@
                                          name="date" style="border-radius: 30px;" readonly>
 
                                 </div> -->
-                                <div class="col-md-12">
+                                <div class="col-md-4">
                                     <label for="total">TotalGlove</label><br>
                                     <input type="text" name="total_pro" v-model="total" class="form-control form-control-md"
                                         style="border-radius: 30px;"  :value="v" placeholder="Total Glove." autocomplete="off"
                                         maxlength="5">
                                 </div>
+                                
                                 <div class="col-md-12">
                                     <label for="operator">Operator</label><br>
                                     <input type="text" name="operator_pro" v-model="operator" class="form-control form-control-md"
@@ -234,7 +235,7 @@
                 </div>
             </div>
         </div>
-    </div>
+ 
 
 
     </section>

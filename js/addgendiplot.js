@@ -18,7 +18,8 @@ let app = new Vue({
         sendDipL:[],
         bat1:[],
         v: 0,
-        machine: '',
+        machinedipl: '',
+        machinedipr: '',
         juliandate: '',
         years: '',
         runno: '',
@@ -177,11 +178,14 @@ let app = new Vue({
         },
         insertDipL()
         {
+            let productlot = this.machinedipl + this.juliandate + this.years + this.runno
+            localStorage.setItem('productlot', productlot)
+
             axios.post('control/actiongendiplot.php', 
             {
                 actions: 'update',
                 updates:this.a,
-                insertproductlot:this.machine + this.juliandate + this.years + this.runno ,
+                insertproductlot:this.machinedipl + this.juliandate + this.years + this.runno ,
                 insertbinno:this.binno,
                 insertsizehand:this.sizehand, 
                 insertproduct:this.product,
@@ -192,22 +196,26 @@ let app = new Vue({
                              
 
             }).then(res => {
-                
-               alert(res.data.message);
+                console.log(res.data)
+                // alert(res)
             })              
                 localStorage.removeItem('dip');
                 localStorage.removeItem('v');
                
-                location.reload();
+                window.location.href = 'pagegen.php';
              
         },
         insertDipR()
         {
+
+            let productlot = this.machinedipr + this.juliandate + this.years + this.runno
+            localStorage.setItem('productlot', productlot)
+
             axios.post('control/actiongendiplot.php', 
             {
                 actions: 'updateR',
                 updatesR:this.b,
-                insertproductlot:this.machine + this.juliandate + this.years + this.runno ,
+                insertproductlot:this.machinedipr + this.juliandate + this.years + this.runno ,
                 insertbinno:this.binno,
                 insertsizehand:this.sizehand, 
                 insertproduct:this.product,
@@ -224,7 +232,7 @@ let app = new Vue({
                 localStorage.removeItem('dipR');
                 localStorage.removeItem('v');
                
-                location.reload();
+                 window.location.href = 'pagegen.php';
              
         },
         callmachinedip()

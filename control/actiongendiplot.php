@@ -50,10 +50,7 @@ if($received_data->actions == 'update')
     }
       $output = array(
         'message' => json_decode($res)
-    );
-    echo json_encode($output);   
-
-  
+    );  
 }
 
 if($received_data->actions == 'updateR')
